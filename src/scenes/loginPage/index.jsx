@@ -25,7 +25,7 @@ const LoginPage = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to Connected! Social Network for Social People!
+          Welcome to Connected! The Place where Celebrities gather!
         </Typography>
         <Form />
       </Box>
