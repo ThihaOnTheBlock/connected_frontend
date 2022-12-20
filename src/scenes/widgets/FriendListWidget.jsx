@@ -13,6 +13,8 @@ const FriendListWidget = ({ userId }) => {
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
 
+  console.log(friends)
+
   const getFriends = async () => {
     const response = await fetch(
       `${api}/users/${userId}/friends`,
@@ -22,6 +24,7 @@ const FriendListWidget = ({ userId }) => {
       }
     );
     const data = await response.json();
+    console.log(data)
     dispatch(setFriends({ friends: data }));
   };
 
