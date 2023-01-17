@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   Box,
   Button,
@@ -15,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import {toast} from 'react-toastify'
 
 const api = "https://connected-api.herokuapp.com"
 
@@ -78,6 +80,7 @@ const Form = () => {
     onSubmitProps.resetForm();
 
     if (savedUser) {
+      toast.success("Account created successfully!")
       setPageType("login");
     }
   };
@@ -91,14 +94,17 @@ const Form = () => {
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
     if (loggedIn) {
+      toast.success(`Logged in as ${loggedIn.user.firstName}`)
       dispatch(
         setLogin({
           user: loggedIn.user,
           token: loggedIn.token,
         })
       );
+      
       navigate("/home");
     }
+   
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
@@ -265,13 +271,14 @@ const Form = () => {
                 },
               }}
             >
-              {isLogin
+              {isLogin    
                 ? "Don't have an account? Sign Up here."
                 : "Already have an account? Login here."}
             </Typography>
           </Box>
         </form>
       )}
+      
     </Formik>
   );
 };

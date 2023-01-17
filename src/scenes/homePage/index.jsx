@@ -7,14 +7,16 @@ import PostsWidget from "scenes/widgets/PostsWidget";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import FriendListWidget from "scenes/widgets/FriendListWidget";
 
+
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath,firstName,lastName } = useSelector((state) => state.user);
-
+  
   return (
     <Box>
       {/* NavBar */}
       <Navbar />
+     
       <Box
         width="100%"
         padding="2rem 6%"

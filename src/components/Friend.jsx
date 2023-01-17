@@ -21,6 +21,8 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const isFriend = friends.find((friend) => friend._id === friendId);
 
+  const isOwner = (_id===friendId)?true:false;
+
   const api = "https://connected-api.herokuapp.com"
 
   const patchFriend = async () => {
@@ -66,16 +68,16 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      <IconButton
+      {!(isOwner)?(<IconButton
         onClick={() => patchFriend()}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
-      >
-        {isFriend ? (
+      > {
+        isFriend ? (
           <PersonRemoveOutlined sx={{ color: primaryDark }} />
         ) : (
           <PersonAddOutlined sx={{ color: primaryDark }} />
-        )}
-      </IconButton>
+        )  }
+      </IconButton>):(<div></div>)}
     </FlexBetween>
   );
 };
