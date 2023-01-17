@@ -47,6 +47,11 @@ const HomePage = () => {
             <AdvertWidget />
             <Box m="2rem 0" />
             <h2>People</h2>
+            <h3>Added You</h3>
+            <FriendListWidget userId={_id} />
+            <h3>Friend Requests Pending</h3>
+            <FriendListWidget userId={_id} />
+            <h3>Your Friends</h3>
             <FriendListWidget userId={_id} />
           </Box>
         )}
