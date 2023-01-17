@@ -12,17 +12,19 @@ const api = 'https://connected-api.herokuapp.com';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
-  const { userId } = useParams();
+  const { userId} = useParams();
   const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getUser = async () => {
+    
+    
     const response = await fetch(`${api}/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    console.log(data)
+    console.log(data.user)
     setUser(data);
   };
 
@@ -42,22 +44,22 @@ const ProfilePage = () => {
         gap="2rem"
         justifyContent="center"
       >
-        
-         {/* User post */}
-         <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
-        >
-          <MyPostWidget picturePath={user.picturePath} />
-          <Box m="2rem 0" />
-          <PostsWidget userId={userId} isProfile />
-        </Box>
         {/* User profile */}
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <UserWidget userId={userId} picturePath={user.picturePath} />
           <Box m="2rem 0" />
           <FriendListWidget userId={userId} />
         </Box>
+        
+         {/* User post */}
+         <Box
+          flexBasis={isNonMobileScreens ? "42%" : undefined}
+          mt={isNonMobileScreens ? undefined : "2rem"}
+        >
+          <Box m="2rem 0" />
+          <PostsWidget userId={userId} isProfile />
+        </Box>
+        
        
       </Box>
     </Box>

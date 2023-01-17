@@ -5,11 +5,12 @@ import PostWidget from "./PostWidget";
 
 const api = "https://connected-api.herokuapp.com"
 
-const PostsWidget = ({ userId, isProfile = false }) => {
+const PostsWidget = ({ userId, isProfile = true }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
 
+  //Newsfeed
   const getPosts = async () => {
     const response = await fetch(`${api}/posts`, {
       method: "GET",
@@ -18,7 +19,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
   };
-
+  //Profile
   const getUserPosts = async () => {
     const response = await fetch(
       `${api}/posts/${userId}/posts`,
@@ -27,14 +28,22 @@ const PostsWidget = ({ userId, isProfile = false }) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    try{
     const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+    console.log(data)
+    dispatch(setPosts({ posts: data }));}catch(e){
+      console.log(e.message)
+    }
   };
 
   useEffect(() => {
     if (isProfile) {
+      //Profile
+      console.log("Triggering profile")
       getUserPosts();
     } else {
+      //Newsfeed
+      console.log("Triggering newsfeed")
       getPosts();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
